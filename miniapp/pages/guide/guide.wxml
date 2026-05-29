@@ -1,0 +1,39 @@
+<!-- pages/guide/guide.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="header-title">音乐平台上传指南</text>
+    <text class="header-desc">将你的歌词和音乐作品发布到各大平台</text>
+  </view>
+
+  <!-- Quick Tips -->
+  <view class="tips-card card">
+    <text class="tips-title">📋 上传前的准备工作</text>
+    <view class="tips-list">
+      <text>✓ 高质量音频文件（WAV/MP3）</text>
+      <text>✓ 高清作品封面（正方形）</text>
+      <text>✓ LRC 格式歌词文件</text>
+    </view>
+  </view>
+
+  <!-- Platforms List -->
+  <view class="platforms-list">
+    <view class="platform-card card" wx:for="{{platforms}}" wx:key="name">
+      <view class="platform-header">
+        <text class="platform-icon">{{item.icon}}</text>
+        <view class="platform-info">
+          <text class="platform-name">{{item.name}}</text>
+          <text class="platform-desc">{{item.desc}}</text>
+        </view>
+      </view>
+      
+      <view class="platform-steps">
+        <text class="steps-title">上传步骤：</text>
+        <text class="step-text">{{item.steps}}</text>
+      </view>
+
+      <button class="platform-btn" bindtap="openPlatform" data-url="{{item.url}}">
+        访问官网
+      </button>
+    </view>
+  </view>
+</view>

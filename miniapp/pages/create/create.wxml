@@ -1,0 +1,78 @@
+<!-- pages/create/create.wxml -->
+<view class="container">
+  <!-- Parameter Panel -->
+  <view class="panel card">
+    <text class="panel-title">创作参数</text>
+    
+    <view class="form-item">
+      <text class="label">歌词主题</text>
+      <input 
+        class="input-field" 
+        placeholder="输入你想要表达的主题"
+        value="{{theme}}"
+        bindinput="onThemeInput"
+      />
+    </view>
+
+    <view class="form-item">
+      <text class="label">音乐风格</text>
+      <picker mode="selector" range="{{styles}}" range-key="label" bindchange="onStyleChange">
+        <view class="picker">
+          {{currentStyle.label}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="label">歌词情绪</text>
+      <picker mode="selector" range="{{moods}}" range-key="label" bindchange="onMoodChange">
+        <view class="picker">
+          {{currentMood.label}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="label">歌词长度</text>
+      <picker mode="selector" range="{{lengths}}" range-key="label" bindchange="onLengthChange">
+        <view class="picker">
+          {{currentLength.label}}
+        </view>
+      </picker>
+    </view>
+
+    <button class="button-primary" bindtap="generateLyrics" loading="{{generating}}">
+      {{generating ? '生成中...' : '生成歌词'}}
+    </button>
+  </view>
+
+  <!-- Lyrics Display -->
+  <view class="lyrics-section card" wx:if="{{lyrics || generating}}">
+    <text class="panel-title">歌词展示</text>
+    
+    <view wx:if="{{generating}}" class="loading">
+      <text>正在创作...</text>
+    </view>
+    
+    <view wx:else class="lyrics-content">
+      <textarea 
+        class="lyrics-textarea"
+        value="{{editingLyrics}}"
+        bindinput="onLyricsInput"
+        placeholder="在这里编辑你的歌词..."
+      />
+      
+      <view class="action-buttons">
+        <button class="button-secondary" bindtap="copyLyrics">复制</button>
+        <button class="button-secondary" bindtap="saveLyrics">保存</button>
+        <button class="button-secondary" bindtap="clearLyrics">清空</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- Tips -->
+  <view class="tips card">
+    <text class="tips-title">💡 提示</text>
+    <text class="tips-text">输入越详细的描述，生成效果越好</text>
+  </view>
+</view>

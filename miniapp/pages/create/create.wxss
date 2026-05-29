@@ -1,0 +1,81 @@
+/* pages/create/create.wxss */
+.panel,
+.lyrics-section,
+.tips {
+  margin: 20rpx 30rpx;
+}
+
+.panel-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 30rpx;
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.label {
+  display: block;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 15rpx;
+}
+
+.loading {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #8b5cf6;
+  font-size: 28rpx;
+}
+
+.lyrics-content {
+  margin-top: 20rpx;
+}
+
+.lyrics-textarea {
+  width: 100%;
+  min-height: 400rpx;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  color: white;
+  font-size: 28rpx;
+  line-height: 1.8;
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 30rpx;
+}
+
+.action-buttons button {
+  flex: 1;
+}
+
+.tips {
+  margin: 40rpx 30rpx;
+  padding: 30rpx;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 20rpx;
+}
+
+.tips-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #8b5cf6;
+  margin-bottom: 10rpx;
+}
+
+.tips-text {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.7);
+}

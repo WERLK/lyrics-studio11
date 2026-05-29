@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/create/create",
+    "pages/guide/guide",
+    "pages/download/download"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#0d0d1a",
+    "navigationBarTitleText": "歌词工坊",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#0d0d1a",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#a0a0a0",
+    "selectedColor": "#8b5cf6",
+    "backgroundColor": "#0d0d1a",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "assets/images/home.png",
+        "selectedIconPath": "assets/images/home-active.png"
+      },
+      {
+        "pagePath": "pages/create/create",
+        "text": "创作",
+        "iconPath": "assets/images/create.png",
+        "selectedIconPath": "assets/images/create-active.png"
+      },
+      {
+        "pagePath": "pages/guide/guide",
+        "text": "指南",
+        "iconPath": "assets/images/guide.png",
+        "selectedIconPath": "assets/images/guide-active.png"
+      },
+      {
+        "pagePath": "pages/download/download",
+        "text": "下载",
+        "iconPath": "assets/images/download.png",
+        "selectedIconPath": "assets/images/download-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

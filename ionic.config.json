@@ -1,0 +1,7 @@
+{
+  "name": "歌词工坊",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

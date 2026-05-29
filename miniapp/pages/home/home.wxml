@@ -1,0 +1,64 @@
+<!-- pages/home/home.wxml -->
+<view class="container">
+  <!-- Hero Section -->
+  <view class="hero-section">
+    <view class="hero-bg"></view>
+    <view class="hero-content">
+      <view class="logo">🎵</view>
+      <text class="title text-gradient">歌词工坊</text>
+      <text class="subtitle">让每一句歌词都成为你的故事</text>
+      <button class="button-primary" bindtap="goToCreate">开始创作</button>
+    </view>
+  </view>
+
+  <!-- Features -->
+  <view class="features-section">
+    <view class="section-title">✨ 核心功能</view>
+    
+    <view class="feature-card card" bindtap="goToCreate">
+      <view class="feature-icon">🎤</view>
+      <view class="feature-info">
+        <text class="feature-title">智能生成</text>
+        <text class="feature-desc">输入主题，AI 为你创作独特歌词</text>
+      </view>
+    </view>
+
+    <view class="feature-card card" bindtap="goToCreate">
+      <view class="feature-icon">🎨</view>
+      <view class="feature-info">
+        <text class="feature-title">封面生成</text>
+        <text class="feature-desc">一键生成专业音乐封面</text>
+      </view>
+    </view>
+
+    <view class="feature-card card" bindtap="goToCreate">
+      <view class="feature-icon">✨</view>
+      <view class="feature-info">
+        <text class="feature-title">AI 优化</text>
+        <text class="feature-desc">润色、精简、增强、押韵</text>
+      </view>
+    </view>
+
+    <view class="feature-card card" bindtap="goToGuide">
+      <view class="feature-icon">📚</view>
+      <view class="feature-info">
+        <text class="feature-title">平台指南</text>
+        <text class="feature-desc">11 大音乐平台详细上传指南</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Platforms -->
+  <view class="platforms-section">
+    <view class="section-title">🎵 支持平台</view>
+    <view class="platforms-grid">
+      <view class="platform-tag">网易云音乐</view>
+      <view class="platform-tag">QQ音乐</view>
+      <view class="platform-tag">汽水音乐</view>
+      <view class="platform-tag">番茄音乐</view>
+      <view class="platform-tag">酷狗音乐</view>
+      <view class="platform-tag">Spotify</view>
+    </view>
+    <text class="more-text" bindtap="goToGuide">查看更多 →</text>
+  </view>
+</view>

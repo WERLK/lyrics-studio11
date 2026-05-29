@@ -1,0 +1,106 @@
+/* pages/home/home.wxss */
+.hero-section {
+  position: relative;
+  padding: 100rpx 40rpx;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+  filter: blur(60rpx);
+  z-index: -1;
+}
+
+.logo {
+  font-size: 120rpx;
+  margin-bottom: 30rpx;
+}
+
+.title {
+  display: block;
+  font-size: 60rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.subtitle {
+  display: block;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 60rpx;
+}
+
+.features-section,
+.platforms-section {
+  padding: 0 30rpx;
+  margin-bottom: 40rpx;
+}
+
+.section-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 30rpx;
+}
+
+.feature-card {
+  display: flex;
+  align-items: center;
+  gap: 30rpx;
+  padding: 30rpx;
+}
+
+.feature-icon {
+  font-size: 60rpx;
+  flex-shrink: 0;
+}
+
+.feature-info {
+  flex: 1;
+}
+
+.feature-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 10rpx;
+}
+
+.feature-desc {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.platforms-section {
+  margin-top: 60rpx;
+}
+
+.platforms-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.platform-tag {
+  background: rgba(139, 92, 246, 0.2);
+  color: #8b5cf6;
+  padding: 15rpx 30rpx;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+}
+
+.more-text {
+  text-align: center;
+  color: #8b5cf6;
+  font-size: 28rpx;
+  padding: 20rpx;
+}

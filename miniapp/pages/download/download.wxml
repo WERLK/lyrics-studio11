@@ -1,0 +1,80 @@
+<!-- pages/download/download.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="header-title">下载歌词工坊</text>
+    <text class="header-desc">选择最适合你的平台</text>
+  </view>
+
+  <!-- Desktop Version -->
+  <view class="download-card card desktop">
+    <view class="card-icon">🖥️</view>
+    <view class="card-content">
+      <text class="card-title">桌面版</text>
+      <text class="card-desc">Windows 原生应用，无需浏览器，直接运行</text>
+      <view class="card-features">
+        <text>✓ Windows 10/11</text>
+        <text>✓ 约 150 MB</text>
+        <text>✓ 安全无广告</text>
+      </view>
+    </view>
+    <button class="button-primary" bindtap="showDesktopGuide">获取桌面版</button>
+  </view>
+
+  <!-- Web Version -->
+  <view class="download-card card web">
+    <view class="card-icon">🌐</view>
+    <view class="card-content">
+      <text class="card-title">在线使用</text>
+      <text class="card-desc">打开浏览器即可使用，随时随地创作</text>
+      <view class="card-features">
+        <text>✓ 跨平台访问</text>
+        <text>✓ 即开即用</text>
+        <text>✓ 数据云端保存</text>
+      </view>
+    </view>
+    <button class="button-secondary" bindtap="copyWebUrl">复制网址</button>
+  </view>
+
+  <!-- Mini Program -->
+  <view class="download-card card miniapp">
+    <view class="card-icon">📱</view>
+    <view class="card-content">
+      <text class="card-title">微信小程序</text>
+      <text class="card-desc">微信内直接使用，扫码即开</text>
+      <view class="card-features">
+        <text>✓ 微信内置</text>
+        <text>✓ 秒开即用</text>
+        <text>✓ 无需安装</text>
+      </view>
+    </view>
+    <button class="button-secondary" disabled>即将上线</button>
+  </view>
+
+  <!-- Build Instructions -->
+  <view class="build-guide card">
+    <text class="guide-title">🔧 自定义构建桌面应用</text>
+    
+    <view class="guide-section">
+      <text class="section-title">前置要求</text>
+      <text class="section-text">• Node.js 18.x 或更高版本</text>
+      <text class="section-text">• npm 9.x 或更高版本</text>
+    </view>
+
+    <view class="guide-section">
+      <text class="section-title">快速构建</text>
+      <view class="code-block">
+        <text selectable="true"># 安装依赖
+npm install
+
+# 构建 Windows 安装包
+npm run dist:win</text>
+      </view>
+    </view>
+
+    <view class="guide-section">
+      <text class="section-title">构建产物</text>
+      <text class="section-text">• Windows 安装包: release/win-unpacked/歌词工坊-Setup.exe</text>
+      <text class="section-text">• Windows 便携版: release/win-unpacked/歌词工坊.exe</text>
+    </view>
+  </view>
+</view>

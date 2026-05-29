@@ -1,0 +1,112 @@
+/* pages/download/download.wxss */
+.header {
+  padding: 60rpx 30rpx 40rpx;
+  text-align: center;
+}
+
+.header-title {
+  display: block;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 15rpx;
+}
+
+.header-desc {
+  display: block;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.download-card {
+  display: flex;
+  align-items: center;
+  gap: 30rpx;
+  margin: 0 30rpx 30rpx;
+}
+
+.card-icon {
+  font-size: 80rpx;
+  flex-shrink: 0;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 10rpx;
+}
+
+.card-desc {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 15rpx;
+}
+
+.card-features {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.card-features text {
+  display: inline-block;
+  margin-right: 20rpx;
+}
+
+.download-card button {
+  flex-shrink: 0;
+  min-width: 160rpx;
+}
+
+.build-guide {
+  margin: 60rpx 30rpx;
+}
+
+.guide-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 30rpx;
+}
+
+.guide-section {
+  margin-bottom: 30rpx;
+}
+
+.section-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #8b5cf6;
+  margin-bottom: 15rpx;
+}
+
+.section-text {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 8rpx;
+  line-height: 1.6;
+}
+
+.code-block {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 30rpx;
+  border-radius: 15rpx;
+  margin-top: 10rpx;
+}
+
+.code-block text {
+  display: block;
+  font-size: 24rpx;
+  color: #4ade80;
+  line-height: 2;
+  font-family: 'Courier New', monospace;
+}

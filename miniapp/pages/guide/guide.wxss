@@ -1,0 +1,111 @@
+/* pages/guide/guide.wxss */
+.header {
+  padding: 40rpx 30rpx;
+  text-align: center;
+}
+
+.header-title {
+  display: block;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 15rpx;
+}
+
+.header-desc {
+  display: block;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tips-card {
+  margin: 0 30rpx 30rpx;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.tips-title {
+  display: block;
+  font-size: 30rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 20rpx;
+}
+
+.tips-list {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.tips-list text {
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.platforms-list {
+  padding: 0 30rpx;
+}
+
+.platform-card {
+  margin-bottom: 30rpx;
+}
+
+.platform-header {
+  display: flex;
+  align-items: center;
+  gap: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.platform-icon {
+  font-size: 60rpx;
+}
+
+.platform-info {
+  flex: 1;
+}
+
+.platform-name {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 8rpx;
+}
+
+.platform-desc {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.platform-steps {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 20rpx;
+  border-radius: 15rpx;
+  margin-bottom: 20rpx;
+}
+
+.steps-title {
+  display: block;
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #8b5cf6;
+  margin-bottom: 10rpx;
+}
+
+.step-text {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
+
+.platform-btn {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  color: white;
+  border: none;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  padding: 20rpx;
+}
