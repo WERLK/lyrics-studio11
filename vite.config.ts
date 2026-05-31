@@ -5,7 +5,7 @@ import { traeBadgePlugin } from 'vite-plugin-trae-solo-badge';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/lyrics-studio/',
+  base: '/lyrics-studio11/',
   build: {
     sourcemap: 'hidden',
   },
