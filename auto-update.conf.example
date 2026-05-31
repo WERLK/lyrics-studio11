@@ -1,0 +1,20 @@
+# 歌词工坊自动更新服务配置文件
+# 将此文件复制到 /etc/lyrics-studio/auto-update.conf
+
+# Git 仓库地址
+REPO_URL="https://github.com/WERLK/lyrics-studio11.git"
+
+# Git 分支
+REPO_BRANCH="master"
+
+# 检查间隔（秒），默认60秒（1分钟）
+CHECK_INTERVAL=60
+
+# 工作目录（存放 Git 仓库）
+WORK_DIR="/opt/lyrics-studio"
+
+# Web 目录（部署位置）
+WEB_DIR="/var/www/lyrics-studio"
+
+# 日志文件路径
+LOG_FILE="/var/log/lyrics-studio-auto-update.log"

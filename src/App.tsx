@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { CheckCircle } from 'lucide-react';
+import MembershipCenter from './pages/MembershipCenter';
 
 function LoadingScreen() {
   const [loaded, setLoaded] = useState(false);
@@ -36,7 +37,7 @@ function Home() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
             <div className="text-5xl mb-4">📱</div>
             <h3 className="text-xl font-bold text-white mb-2">手机版</h3>
@@ -53,6 +54,16 @@ function Home() {
             <p className="text-purple-200/70 mb-4">完整的创作工作台</p>
             <a href="/create" className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors">
               开始创作
+              <CheckCircle className="w-4 h-4" />
+            </a>
+          </div>
+
+          <div className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 rounded-2xl p-8">
+            <div className="text-5xl mb-4">👑</div>
+            <h3 className="text-xl font-bold text-white mb-2">会员中心</h3>
+            <p className="text-purple-200/70 mb-4">广告积分·转盘抽奖</p>
+            <a href="/membership" className="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 transition-colors">
+              立即加入
               <CheckCircle className="w-4 h-4" />
             </a>
           </div>
@@ -107,6 +118,21 @@ function MobileHome() {
               </div>
             </div>
             <span className="text-lg text-purple-400">→</span>
+          </div>
+        </a>
+
+        <a href="/membership" className="block bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl p-4 text-white">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                <span className="text-xl">👑</span>
+              </div>
+              <div>
+                <h3 className="font-semibold">会员中心</h3>
+                <p className="text-sm opacity-80">广告积分·转盘抽奖</p>
+              </div>
+            </div>
+            <span className="text-lg">→</span>
           </div>
         </a>
       </div>
@@ -293,6 +319,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/membership" element={<MembershipCenter />} />
         <Route path="/mobile" element={<MobileHome />} />
         <Route path="/mobile/create" element={<MobileCreator />} />
         <Route path="/mobile/guide" element={<MobilePlatformGuide />} />

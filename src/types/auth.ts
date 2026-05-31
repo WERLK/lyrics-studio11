@@ -5,6 +5,14 @@ export interface User {
   avatar?: string;
   createdAt: number;
   bio?: string;
+  membership?: Membership;
+  points: number;
+}
+
+export interface Membership {
+  level: 'free' | 'basic' | 'pro' | 'vip';
+  expiryDate: number | null;
+  benefits: string[];
 }
 
 export interface AuthState {
@@ -30,4 +38,39 @@ export interface AuthResponse {
   message: string;
   user?: User;
   token?: string;
+}
+
+export interface PointsHistory {
+  id: string;
+  type: 'earn' | 'spend';
+  amount: number;
+  source: string;
+  timestamp: number;
+  description: string;
+}
+
+export interface AdReward {
+  id: string;
+  points: number;
+  watched: boolean;
+  watchedAt?: number;
+}
+
+export interface LotteryPrize {
+  id: string;
+  name: string;
+  points: number;
+  probability: number;
+  type: 'points' | 'vip' | 'discount';
+  image?: string;
+}
+
+export interface ExchangeItem {
+  id: string;
+  name: string;
+  description: string;
+  pointsRequired: number;
+  type: 'vip' | 'feature' | 'gift';
+  duration?: string;
+  icon: string;
 }
