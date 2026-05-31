@@ -1,7 +1,59 @@
-import { GenerateParams, LyricsLength, LyricsMood, LyricsStyle } from '../types';
-import * as api from '../api/client';
+import express from 'express';
+import cors from 'cors';
+import Database from 'better-sqlite3';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const THEMES: Record<string, string[]> = {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+app.use(cors());
+app.use(express.json());
+
+const dbPath = path.join(__dirname, 'lyrics.db');
+const db = new Database(dbPath);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS lyrics (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    prompt_hash TEXT NOT NULL,
+    style TEXT NOT NULL,
+    mood TEXT NOT NULL,
+    length TEXT NOT NULL,
+    lyrics_text TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(prompt_hash, style, mood, length)
+  )
+`);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS usage_stats (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    prompt_hash TEXT NOT NULL,
+    style TEXT NOT NULL,
+    mood TEXT NOT NULL,
+    length TEXT NOT NULL,
+    count INTEGER DEFAULT 1,
+    last_used DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(prompt_hash, style, mood, length)
+  )
+`);
+
+function hashPrompt(theme: string, style: string, mood: string, length: string): string {
+  const combined = `${theme.toLowerCase().trim()}|${style}|${mood}|${length}`;
+  let hash = 0;
+  for (let i = 0; i < combined.length; i++) {
+    const char = combined.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  return Math.abs(hash).toString(36);
+}
+
+const THEMES = {
   love: ['心跳', '思念', '拥抱', '相守', '离别', '承诺'],
   dream: ['追逐', '远方', '希望', '坚持', '突破', '飞翔'],
   life: ['时光', '成长', '回忆', '选择', '勇气', '感悟'],
@@ -9,7 +61,7 @@ const THEMES: Record<string, string[]> = {
   custom: [],
 };
 
-const PHRASES: Record<LyricsStyle, Record<LyricsMood, string[][]>> = {
+const PHRASES = {
   pop: {
     happy: [
       ['阳光洒在街道上', '你的笑容像彩虹', '快乐就在这一刻'],
@@ -249,7 +301,7 @@ const STRUCTURE_TEMPLATES = [
   { type: 'chorus', lines: 4 },
 ];
 
-function getLineCount(length: LyricsLength): number {
+function getLineCount(length: string): number {
   switch (length) {
     case 'short':
       return 16;
@@ -257,6 +309,8 @@ function getLineCount(length: LyricsLength): number {
       return 32;
     case 'long':
       return 48;
+    default:
+      return 32;
   }
 }
 
@@ -297,12 +351,14 @@ function shuffleArray<T>(arr: T[]): T[] {
   return shuffled;
 }
 
-export async function generateLyricsLocal(params: GenerateParams, attempt: number = 0): Promise<string> {
-  await new Promise((resolve) => setTimeout(resolve, 500 + Math.random() * 500));
-
-  const lineCount = getLineCount(params.length);
+function generateLyricsInternal(theme: string, style: string, mood: string, length: string, attempt: number = 0): string {
+  const lineCount = getLineCount(length);
   const structure = getStructure(lineCount);
-  const phrases = PHRASES[params.style][params.mood];
+  const phrases = (PHRASES as any)[style]?.[mood];
+
+  if (!phrases) {
+    throw new Error('Invalid style or mood');
+  }
 
   const lyrics: string[] = [];
   let lineCounter = 0;
@@ -325,11 +381,11 @@ export async function generateLyricsLocal(params: GenerateParams, attempt: numbe
       const phraseSet = shuffledPhrases[phraseIndex];
       const line = phraseSet[(i + attempt) % phraseSet.length];
 
-      if (params.style === 'rap') {
+      if (style === 'rap') {
         const rapEndings = ['，Yo', '，Yeah', '，Check it', '，Uh', ''];
         const ending = rapEndings[(i + attempt) % rapEndings.length];
         lyrics.push(line + ending);
-      } else if (params.style === 'ancient') {
+      } else if (style === 'ancient') {
         const endings = ['兮', '也', '乎', '哉', '矣', '耳', ''];
         const ending = endings[(i + attempt) % endings.length];
         lyrics.push(line + ending);
@@ -351,40 +407,94 @@ export async function generateLyricsLocal(params: GenerateParams, attempt: numbe
   return lyrics.join('\n');
 }
 
-export async function generateLyrics(params: GenerateParams): Promise<string> {
+app.post('/api/generate', (req, res) => {
   try {
-    const apiResult = await api.generateLyrics({
-      theme: params.theme,
-      style: params.style,
-      mood: params.mood,
-      length: params.length,
-    });
+    const { theme, style, mood, length } = req.body;
 
-    if (apiResult.success && apiResult.lyrics) {
-      return apiResult.lyrics;
+    if (!theme || !style || !mood || !length) {
+      return res.status(400).json({ error: 'Missing required parameters' });
     }
+
+    const promptHash = hashPrompt(theme, style, mood, length);
+
+    const checkStmt = db.prepare('SELECT lyrics_text, created_at FROM lyrics WHERE prompt_hash = ? AND style = ? AND mood = ? AND length = ? ORDER BY created_at DESC');
+    const existing = checkStmt.all(promptHash, style, mood, length);
+
+    const recentSet = new Set<string>();
+    const recentLyrics = existing.slice(0, 5);
+    recentLyrics.forEach(row => recentSet.add(row.lyrics_text));
+
+    let lyrics = '';
+    let attempt = 0;
+    const maxAttempts = 10;
+
+    while (attempt < maxAttempts) {
+      const candidate = generateLyricsInternal(theme, style, mood, length, attempt);
+      if (!recentSet.has(candidate)) {
+        lyrics = candidate;
+        break;
+      }
+      attempt++;
+    }
+
+    if (!lyrics) {
+      lyrics = generateLyricsInternal(theme, style, mood, length, Date.now() % 1000);
+    }
+
+    try {
+      const insertStmt = db.prepare('INSERT OR IGNORE INTO lyrics (prompt_hash, style, mood, length, lyrics_text) VALUES (?, ?, ?, ?, ?)');
+      insertStmt.run(promptHash, style, mood, length, lyrics);
+    } catch (insertErr) {
+      console.error('Insert error:', insertErr);
+    }
+
+    try {
+      const upsertStmt = db.prepare(`
+        INSERT INTO usage_stats (prompt_hash, style, mood, length, count) 
+        VALUES (?, ?, ?, ?, 1) 
+        ON CONFLICT(prompt_hash, style, mood, length) 
+        DO UPDATE SET count = count + 1, last_used = CURRENT_TIMESTAMP
+      `);
+      upsertStmt.run(promptHash, style, mood, length);
+    } catch (upsertErr) {
+      console.error('Upsert error:', upsertErr);
+    }
+
+    res.json({
+      success: true,
+      lyrics,
+      isNew: !recentLyrics.some(row => row.lyrics_text === lyrics),
+      totalVariations: existing.length + 1,
+    });
   } catch (error) {
-    console.warn('API failed, falling back to local generation:', error);
+    console.error('Generate error:', error);
+    res.status(500).json({ error: 'Failed to generate lyrics' });
   }
+});
 
-  return await generateLyricsLocal(params);
-}
+app.get('/api/stats', (req, res) => {
+  try {
+    const totalStmt = db.prepare('SELECT COUNT(*) as count FROM lyrics');
+    const statsStmt = db.prepare('SELECT prompt_hash, style, mood, length, count FROM usage_stats ORDER BY count DESC LIMIT 20');
 
-export function detectTheme(theme: string): string {
-  const lowerTheme = theme.toLowerCase();
+    const total = totalStmt.get() as any;
+    const popular = statsStmt.all() as any[];
 
-  if (lowerTheme.includes('爱') || lowerTheme.includes('情') || lowerTheme.includes('心') || lowerTheme.includes('love')) {
-    return 'love';
+    res.json({
+      totalLyrics: total?.count || 0,
+      popularQueries: popular,
+    });
+  } catch (error) {
+    console.error('Stats error:', error);
+    res.status(500).json({ error: 'Failed to get stats' });
   }
-  if (lowerTheme.includes('梦') || lowerTheme.includes('想') || lowerTheme.includes('追') || lowerTheme.includes('dream')) {
-    return 'dream';
-  }
-  if (lowerTheme.includes('生') || lowerTheme.includes('活') || lowerTheme.includes('时光') || lowerTheme.includes('life')) {
-    return 'life';
-  }
-  if (lowerTheme.includes('自然') || lowerTheme.includes('星空') || lowerTheme.includes('海') || lowerTheme.includes('山') || lowerTheme.includes('nature')) {
-    return 'nature';
-  }
+});
 
-  return 'custom';
-}
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Lyrics Studio API is running' });
+});
+
+app.listen(PORT, () => {
+  console.log(`🚀 Lyrics Studio API server running on http://localhost:${PORT}`);
+  console.log(`📊 Database: ${dbPath}`);
+});

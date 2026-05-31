@@ -1,7 +1,16 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, RefreshCw } from 'lucide-react';
 import MembershipCenter from './pages/MembershipCenter';
+import GlobalMusicPlatforms from './pages/GlobalMusicPlatforms';
+import DeploymentGuide from './pages/DeploymentGuide';
+import MusicCreationStudio from './pages/MusicCreationStudio';
+import AccessGuide from './pages/AccessGuide';
+import MVGenerator from './pages/MVGenerator';
+import AuthForm from './components/auth/AuthForm';
+import RealNameVerification from './components/auth/RealNameVerification';
+import Onboarding from './components/onboarding/Onboarding';
+import DataSyncPage from './pages/DataSyncPage';
 
 function LoadingScreen() {
   const [loaded, setLoaded] = useState(false);
@@ -37,33 +46,73 @@ function Home() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
-            <div className="text-5xl mb-4">📱</div>
-            <h3 className="text-xl font-bold text-white mb-2">手机版</h3>
-            <p className="text-purple-200/70 mb-4">专为手机优化的体验</p>
-            <a href="/mobile" className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors">
-              进入手机版
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="bg-gradient-to-br from-pink-500/20 to-orange-500/20 border border-pink-500/30 rounded-2xl p-6 hover:border-pink-500/50 transition-all">
+            <div className="text-4xl mb-3">🎬</div>
+            <h3 className="text-lg font-bold text-white mb-2">MV视频生成</h3>
+            <p className="text-purple-200/70 mb-4 text-sm">AI智能生成专业MV</p>
+            <a href="/mv" className="inline-flex items-center gap-2 text-pink-400 hover:text-pink-300 transition-colors text-sm">
+              立即体验
               <CheckCircle className="w-4 h-4" />
             </a>
           </div>
 
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
-            <div className="text-5xl mb-4">💻</div>
-            <h3 className="text-xl font-bold text-white mb-2">电脑版</h3>
-            <p className="text-purple-200/70 mb-4">完整的创作工作台</p>
-            <a href="/create" className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors">
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-purple-500/50 transition-all">
+            <div className="text-4xl mb-3">🎵</div>
+            <h3 className="text-lg font-bold text-white mb-2">创作工作室</h3>
+            <p className="text-purple-200/70 mb-4 text-sm">一站式音乐创作工具</p>
+            <a href="/studio" className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors text-sm">
               开始创作
               <CheckCircle className="w-4 h-4" />
             </a>
           </div>
 
-          <div className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 rounded-2xl p-8">
-            <div className="text-5xl mb-4">👑</div>
-            <h3 className="text-xl font-bold text-white mb-2">会员中心</h3>
-            <p className="text-purple-200/70 mb-4">广告积分·转盘抽奖</p>
-            <a href="/membership" className="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 transition-colors">
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-purple-500/50 transition-all">
+            <div className="text-4xl mb-3">🌍</div>
+            <h3 className="text-lg font-bold text-white mb-2">全球音乐平台</h3>
+            <p className="text-purple-200/70 mb-4 text-sm">100+音乐平台汇总</p>
+            <a href="/platforms" className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors text-sm">
+              查看平台
+              <CheckCircle className="w-4 h-4" />
+            </a>
+          </div>
+
+          <div className="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 rounded-2xl p-6 hover:border-blue-500/50 transition-all">
+            <div className="text-4xl mb-3">🔄</div>
+            <h3 className="text-lg font-bold text-white mb-2">三端数据互通</h3>
+            <p className="text-purple-200/70 mb-4 text-sm">电脑/手机/网页数据同步</p>
+            <a href="/sync" className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors text-sm">
+              同步数据
+              <RefreshCw className="w-4 h-4" />
+            </a>
+          </div>
+
+          <div className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 rounded-2xl p-6 hover:border-yellow-500/50 transition-all">
+            <div className="text-4xl mb-3">👑</div>
+            <h3 className="text-lg font-bold text-white mb-2">会员中心</h3>
+            <p className="text-purple-200/70 mb-4 text-sm">广告积分·转盘抽奖</p>
+            <a href="/membership" className="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 transition-colors text-sm">
               立即加入
+              <CheckCircle className="w-4 h-4" />
+            </a>
+          </div>
+
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-purple-500/50 transition-all">
+            <div className="text-4xl mb-3">🚀</div>
+            <h3 className="text-lg font-bold text-white mb-2">部署指南</h3>
+            <p className="text-purple-200/70 mb-4 text-sm">从简单到专业部署</p>
+            <a href="/deploy" className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors text-sm">
+              查看教程
+              <CheckCircle className="w-4 h-4" />
+            </a>
+          </div>
+
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-purple-500/50 transition-all">
+            <div className="text-4xl mb-3">🔐</div>
+            <h3 className="text-lg font-bold text-white mb-2">访问指南</h3>
+            <p className="text-purple-200/70 mb-4 text-sm">国际平台访问方式</p>
+            <a href="/access" className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors text-sm">
+              查看教程
               <CheckCircle className="w-4 h-4" />
             </a>
           </div>
@@ -90,31 +139,61 @@ function MobileHome() {
         <p className="text-purple-200/70 text-sm">手机专属创作体验</p>
       </div>
 
-      <div className="space-y-4">
-        <a href="/mobile/create" className="block bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl p-4 text-white">
+      <div className="space-y-3">
+        <a href="/studio" className="block bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl p-4 text-white">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
-                <span className="text-xl">✨</span>
+                <span className="text-xl">🎵</span>
               </div>
               <div>
-                <h3 className="font-semibold">创作歌词</h3>
-                <p className="text-sm opacity-80">智能生成你的灵感</p>
+                <h3 className="font-semibold">创作工作室</h3>
+                <p className="text-sm opacity-80">一站式音乐创作工具</p>
               </div>
             </div>
             <span className="text-lg">→</span>
           </div>
         </a>
 
-        <a href="/mobile/guide" className="block bg-white/5 border border-white/10 rounded-xl p-4">
+        <a href="/platforms" className="block bg-white/5 border border-white/10 rounded-xl p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                <span className="text-xl">🌍</span>
+              </div>
+              <div>
+                <h3 className="font-semibold text-white">全球音乐平台</h3>
+                <p className="text-sm text-purple-200/70">100+音乐平台汇总</p>
+              </div>
+            </div>
+            <span className="text-lg text-purple-400">→</span>
+          </div>
+        </a>
+
+        <a href="/deploy" className="block bg-white/5 border border-white/10 rounded-xl p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
                 <span className="text-xl">🚀</span>
               </div>
               <div>
-                <h3 className="font-semibold text-white">发布平台</h3>
-                <p className="text-sm text-purple-200/70">100+音乐平台指南</p>
+                <h3 className="font-semibold text-white">部署指南</h3>
+                <p className="text-sm text-purple-200/70">从简单到专业部署</p>
+              </div>
+            </div>
+            <span className="text-lg text-purple-400">→</span>
+          </div>
+        </a>
+
+        <a href="/access" className="block bg-white/5 border border-white/10 rounded-xl p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-orange-500/20 flex items-center justify-center">
+                <span className="text-xl">🔐</span>
+              </div>
+              <div>
+                <h3 className="font-semibold text-white">访问指南</h3>
+                <p className="text-sm text-purple-200/70">国际平台访问方式</p>
               </div>
             </div>
             <span className="text-lg text-purple-400">→</span>
@@ -319,7 +398,17 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<AuthForm onLogin={() => {}} onRegister={() => {}} />} />
+        <Route path="/register" element={<AuthForm onLogin={() => {}} onRegister={() => {}} />} />
+        <Route path="/verify" element={<RealNameVerification onComplete={() => {}} onSkip={() => {}} />} />
+        <Route path="/onboarding" element={<Onboarding onComplete={() => {}} />} />
         <Route path="/membership" element={<MembershipCenter />} />
+        <Route path="/platforms" element={<GlobalMusicPlatforms />} />
+        <Route path="/deploy" element={<DeploymentGuide />} />
+        <Route path="/studio" element={<MusicCreationStudio />} />
+        <Route path="/access" element={<AccessGuide />} />
+        <Route path="/mv" element={<MVGenerator />} />
+        <Route path="/sync" element={<DataSyncPage />} />
         <Route path="/mobile" element={<MobileHome />} />
         <Route path="/mobile/create" element={<MobileCreator />} />
         <Route path="/mobile/guide" element={<MobilePlatformGuide />} />
